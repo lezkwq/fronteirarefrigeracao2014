@@ -9,8 +9,6 @@ import {
   Instagram,
   Plus,
   Snowflake,
-  WashingMachine,
-  Store,
 } from "lucide-react";
 import { wa, MSG, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import logo from "@/assets/fronteira-logo.webp";
@@ -53,17 +51,6 @@ function Reveal({
       className={`reveal ${visible ? "is-visible" : ""} ${className}`}
     >
       {children}
-    </div>
-  );
-}
-
-function ServiceVisual({ icon: Icon, className = "" }: { icon: typeof Wind; className?: string }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={"grid place-items-center rounded-2xl bg-sky/60 text-ink/65 " + className}
-    >
-      <Icon className="size-[35%] max-h-28 max-w-28" strokeWidth={1.25} />
     </div>
   );
 }
@@ -393,9 +380,13 @@ function Sobre() {
       <div className={`${container} grid items-center gap-12 md:grid-cols-12 md:gap-16`}>
         <Reveal className="md:col-span-5">
           <div className="relative">
-            <ServiceVisual
-              icon={MapPin}
-              className="aspect-[4/5] rounded-[2rem] shadow-[var(--shadow-soft)]"
+            <img
+              src="/images/tecnico-na-condensadora.webp"
+              alt="Técnico da Fronteira com manômetros junto à condensadora de ar-condicionado"
+              width={490}
+              height={292}
+              loading="lazy"
+              className="w-full rounded-[2rem] shadow-[var(--shadow-soft)]"
             />
             <div className="absolute -bottom-6 -right-3 rounded-2xl bg-navy px-5 py-4 text-navy-foreground shadow-[var(--shadow-soft)] md:-right-8">
               <p className="text-xs uppercase tracking-[0.18em] text-navy-foreground/60">
@@ -471,36 +462,54 @@ function Higienizacao() {
 
 /* ---------- 07 trabalhos ---------- */
 
-function Equipamentos() {
+const TRABALHOS = [
+  {
+    image: "ar-condicionado-split.webp",
+    caption: "Ar-condicionado split instalado em parede de azulejos",
+    width: 842,
+    height: 843,
+  },
+  {
+    image: "manometros-geladeira.webp",
+    caption: "Manômetros conectados durante o atendimento em uma geladeira",
+    width: 841,
+    height: 837,
+  },
+  {
+    image: "manutencao-geladeira.webp",
+    caption: "Geladeira em manutenção com bomba de vácuo e ferramentas",
+    width: 628,
+    height: 790,
+  },
+];
+
+function Trabalhos() {
   return (
     <section className="bg-background py-20 text-ink md:py-32">
       <div className={container}>
         <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <Eyebrow n="05">Equipamentos atendidos</Eyebrow>
-            <H2 className="mt-5">Da cozinha de casa ao comércio.</H2>
+            <Eyebrow n="05">Trabalhos realizados</Eyebrow>
+            <H2 className="mt-5">Climatização e refrigeração na prática.</H2>
           </div>
-          <p className="max-w-sm text-ink/60">
-            Assistência técnica para equipamentos residenciais e comerciais.
-          </p>
+          <p className="max-w-sm text-ink/60">Registros de atendimentos da Fronteira.</p>
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-12">
-          <Reveal className="md:col-span-5">
-            <figure>
-              <ServiceVisual icon={WashingMachine} className="aspect-[4/5] rounded-[1.75rem]" />
-              <figcaption className="mt-3 text-sm text-ink/55">
-                Manutenção e conserto de lavadoras
-              </figcaption>
-            </figure>
-          </Reveal>
-          <Reveal className="md:col-span-7 md:mt-24" delay={120}>
-            <figure>
-              <ServiceVisual icon={Store} className="aspect-[4/3] rounded-[1.75rem]" />
-              <figcaption className="mt-3 text-sm text-ink/55">
-                Manutenção de balcões e expositores refrigerados
-              </figcaption>
-            </figure>
-          </Reveal>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {TRABALHOS.map(({ image, caption, width, height }, index) => (
+            <Reveal key={image} delay={index * 100}>
+              <figure>
+                <img
+                  src={"/images/" + image}
+                  alt=""
+                  width={width}
+                  height={height}
+                  loading="lazy"
+                  className="aspect-square w-full rounded-[1.75rem] object-cover"
+                />
+                <figcaption className="mt-3 text-sm text-ink/65">{caption}</figcaption>
+              </figure>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -873,7 +882,7 @@ export function SiteSections() {
       <Refrigeracao />
       <Sobre />
       <Higienizacao />
-      <Equipamentos />
+      <Trabalhos />
       <PorQue />
       <Avaliacoes />
       <Faq />
