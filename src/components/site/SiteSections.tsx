@@ -9,10 +9,8 @@ import {
   Instagram,
   Plus,
   Snowflake,
-  Refrigerator,
   WashingMachine,
   Store,
-  Wrench,
 } from "lucide-react";
 import { wa, MSG, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import logo from "@/assets/fronteira-logo.webp";
@@ -67,6 +65,28 @@ function ServiceVisual({ icon: Icon, className = "" }: { icon: typeof Wind; clas
     >
       <Icon className="size-[35%] max-h-28 max-w-28" strokeWidth={1.25} />
     </div>
+  );
+}
+
+function ServiceIllustration({
+  src,
+  mobileSrc,
+  className,
+}: {
+  src: string;
+  mobileSrc?: string;
+  className: string;
+}) {
+  return (
+    <figure className={"relative overflow-hidden bg-sky/60 " + className}>
+      <picture>
+        {mobileSrc && <source media="(max-width: 767px)" srcSet={mobileSrc} />}
+        <img src={src} alt="" className="absolute inset-0 size-full object-cover" loading="lazy" />
+      </picture>
+      <figcaption className="absolute bottom-2 left-2 rounded bg-navy px-1.5 py-0.5 text-[10px] font-medium text-white">
+        Ilustração
+      </figcaption>
+    </figure>
   );
 }
 
@@ -190,25 +210,25 @@ const CLIMA = [
   {
     t: "Instalação de ar-condicionado",
     d: "Instalação de aparelhos e preparação da infraestrutura necessária.",
-    icon: Wind,
+    image: "/images/fd8424a8-3fd8-4b43-aa0e-b661f8dddc29.jpg",
     msg: MSG.instalacao,
   },
   {
     t: "Manutenção de ar-condicionado",
     d: "Manutenção de aparelhos e componentes para preservar seu funcionamento.",
-    icon: Wrench,
+    image: "/images/codex-clipboard-09c08d1d-8112-4259-8e85-115a021a28e1.jpg",
     msg: MSG.manutencao,
   },
   {
     t: "Higienização de ar-condicionado",
     d: "Limpeza completa do equipamento e dos filtros.",
-    icon: Wind,
+    image: "/images/codex-clipboard-ae4714ba-275c-4c1d-a73d-1a3c0e276bde.jpg",
     msg: MSG.higienizacao,
   },
   {
     t: "Conserto de ar-condicionado",
     d: "Diagnóstico de problemas e reparos no equipamento.",
-    icon: Wrench,
+    image: "/images/c3eeba0f-bed9-4f8d-b0ab-f9a8ea94998c.jpg",
     msg: MSG.conserto,
   },
 ];
@@ -234,8 +254,8 @@ function Climatizacao() {
           {/* Featured */}
           <Reveal className="md:col-span-7 md:row-span-2">
             <article className="group flex h-full flex-col overflow-hidden rounded-3xl bg-mist">
-              <ServiceVisual
-                icon={feat.icon}
+              <ServiceIllustration
+                src={feat.image}
                 className="aspect-[4/3] rounded-none md:aspect-auto md:flex-1"
               />
               <div className="flex flex-col gap-4 p-7 md:flex-row md:items-end md:justify-between md:p-9">
@@ -251,8 +271,8 @@ function Climatizacao() {
           {rest.slice(0, 2).map((s, i) => (
             <Reveal key={s.t} delay={i * 100} className="md:col-span-5">
               <article className="grid h-full grid-cols-[1fr_auto] gap-5 rounded-3xl border border-ink/10 p-6 md:grid-cols-[7.5rem_1fr]">
-                <ServiceVisual
-                  icon={s.icon}
+                <ServiceIllustration
+                  src={s.image}
                   className="order-2 aspect-square w-24 md:order-none md:w-full"
                 />
                 <div className="flex flex-col">
@@ -269,7 +289,7 @@ function Climatizacao() {
           {rest.slice(2).map((s, i) => (
             <Reveal key={s.t} delay={i * 100} className="md:col-span-12">
               <article className="grid h-full gap-5 rounded-3xl border border-ink/10 p-6 md:grid-cols-[8rem_1fr_auto] md:items-center">
-                <ServiceVisual icon={s.icon} className="aspect-[16/10]" />
+                <ServiceIllustration src={s.image} className="aspect-[16/10]" />
                 <div>
                   <span className="font-mono text-xs text-ink/40">0{i + 4}</span>
                   <h3 className="mt-1 font-display text-lg font-semibold">{s.t}</h3>
@@ -290,18 +310,28 @@ function Climatizacao() {
 /* ---------- 04 refrigeração ---------- */
 
 const REFRI = [
-  { t: "Geladeiras", d: "Conserto de geladeiras", icon: Refrigerator, msg: MSG.geladeira },
-  { t: "Freezers", d: "Conserto de freezers", icon: Snowflake, msg: MSG.freezer },
+  {
+    t: "Geladeiras",
+    d: "Conserto de geladeiras",
+    image: "/images/df4b5030-996a-4fe9-8e8c-e6341d8e4346.jpg",
+    msg: MSG.geladeira,
+  },
+  {
+    t: "Freezers",
+    d: "Conserto de freezers",
+    image: "/images/62ecefc0-25b8-4f53-bc82-51345ccfce2d.jpg",
+    msg: MSG.freezer,
+  },
   {
     t: "Máquinas de lavar",
     d: "Conserto de máquinas de lavar",
-    icon: WashingMachine,
+    image: "/images/codex-clipboard-04ee32fc-a7f1-4fed-b6ae-0d06face73c4.jpg",
     msg: MSG.lavar,
   },
   {
     t: "Expositores e balcões",
     d: "Manutenção de expositores e balcões refrigerados",
-    icon: Store,
+    image: "/images/09054cfc-dcdd-4918-b665-147d87863d27.jpg",
     msg: MSG.expositor,
   },
 ];
@@ -334,7 +364,10 @@ function Refrigeracao() {
                   rel="noopener noreferrer"
                   className="group block overflow-hidden rounded-3xl bg-navy-foreground/5 ring-1 ring-navy-foreground/10 transition-colors hover:bg-navy-foreground/10"
                 >
-                  <ServiceVisual icon={r.icon} className="aspect-[4/5] rounded-none opacity-90" />
+                  <ServiceIllustration
+                    src={r.image}
+                    className="aspect-[4/5] rounded-none opacity-90"
+                  />
                   <div className="flex items-end justify-between gap-2 p-4 md:p-6">
                     <div>
                       <h3 className="font-display text-base font-semibold md:text-xl">{r.t}</h3>
@@ -407,8 +440,9 @@ function Higienizacao() {
     <section className="bg-sky py-20 text-ink md:py-28">
       <div className={container}>
         <div className="grid overflow-hidden rounded-[2rem] bg-background md:grid-cols-2">
-          <ServiceVisual
-            icon={Wind}
+          <ServiceIllustration
+            src="/images/57786ddc-013a-4758-a0e3-5666676b6747.jpg"
+            mobileSrc="/images/14d237c6-d9cb-411d-8897-163c86037496.jpg"
             className="aspect-[4/3] rounded-none md:aspect-auto md:min-h-[560px]"
           />
           <Reveal className="flex flex-col justify-center p-8 md:p-14">
