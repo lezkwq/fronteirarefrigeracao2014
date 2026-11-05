@@ -1,0 +1,2 @@
+- Keep desktop and mobile hero framing in separate media queries; position the original images with CSS at their native proportions so changes to one viewport never affect the other.
+- Reuse the shared WhatsApp SVG for WhatsApp links and the supplied logo asset for site branding; shortcut icons are cropped from the supplied symbol, never redrawn.
